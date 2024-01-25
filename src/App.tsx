@@ -1,7 +1,54 @@
+import { useState } from 'react';
 import './App.css';
 
+export type ItemId = `${string}-${string}-${string}-${string}-${string}`;
+export interface Item {
+  id: ItemId;
+  text: string;
+  timestamp: number;
+}
+const INITIAL_ITEMS: Item[] = [
+  {
+    id: crypto.randomUUID(),
+    text: 'Videojuegos',
+    timestamp: Date.now(),
+  },
+  {
+    id: crypto.randomUUID(),
+    text: 'Libros',
+    timestamp: Date.now(),
+  },
+];
+
 function App() {
-  const handleSubmit = () => {};
+  const [items, setItem] = useState(INITIAL_ITEMS);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { elements } = event.currentTarget;
+
+    const input = elements.namedItem('item');
+    const isInput = input instanceof HTMLInputElement;
+    if (!isInput || input == null) return;
+
+    const newItem: Item = {
+      id: crypto.randomUUID(),
+      text: input.value,
+      timestamp: Date.now(),
+    };
+
+    setItem((prevItems) => {
+      return [...prevItems, newItem];
+    });
+
+    input.value = '';
+  };
+
+  const createHandleRemoveItem = (id: ItemId) => () => {
+    setItem((prevItems) => {
+      return prevItems.filter((currentItem) => currentItem.id != id);
+    });
+  };
 
   return (
     <main>
@@ -24,6 +71,18 @@ function App() {
       </aside>
       <section>
         <h2>Lista de elementos</h2>
+        <ul>
+          {items.map((item) => {
+            return (
+              <li key={item.id}>
+                {item.text}
+                <button onClick={createHandleRemoveItem(item.id)}>
+                  Eliminar Elemento
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </section>
     </main>
   );
