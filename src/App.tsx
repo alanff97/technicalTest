@@ -21,7 +21,7 @@ const INITIAL_ITEMS: Item[] = [
 ];
 
 function App() {
-  const [items, setItem] = useState(INITIAL_ITEMS);
+  const [items, setItems] = useState(INITIAL_ITEMS);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +37,7 @@ function App() {
       timestamp: Date.now(),
     };
 
-    setItem((prevItems) => {
+    setItems((prevItems) => {
       return [...prevItems, newItem];
     });
 
@@ -45,7 +45,7 @@ function App() {
   };
 
   const createHandleRemoveItem = (id: ItemId) => () => {
-    setItem((prevItems) => {
+    setItems((prevItems) => {
       return prevItems.filter((currentItem) => currentItem.id != id);
     });
   };
@@ -72,16 +72,22 @@ function App() {
       <section>
         <h2>Lista de elementos</h2>
         <ul>
-          {items.map((item) => {
-            return (
-              <li key={item.id}>
-                {item.text}
-                <button onClick={createHandleRemoveItem(item.id)}>
-                  Eliminar Elemento
-                </button>
-              </li>
-            );
-          })}
+          {items.length == 0 ? (
+            <p>
+              <strong>No hay elementos en la lista</strong>
+            </p>
+          ) : (
+            items.map((item) => {
+              return (
+                <li key={item.id}>
+                  {item.text}
+                  <button onClick={createHandleRemoveItem(item.id)}>
+                    Eliminar Elemento
+                  </button>
+                </li>
+              );
+            })
+          )}
         </ul>
       </section>
     </main>
