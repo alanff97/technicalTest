@@ -54,9 +54,9 @@ function App() {
     <main>
       <aside>
         <h1>Prueba Tecnica React</h1>
-        <h2>Añadir y elimar elementos de una lista</h2>
+        <h2>Añadir y eliminar elementos de una lista</h2>
 
-        <form onSubmit={handleSubmit} aria-label="Añadir elementos a la lista">
+        <form onSubmit={handleSubmit} aria-label="Añadir elementos a la lista"> 
           <label>
             Elemento a introducir:
             <input
@@ -71,13 +71,14 @@ function App() {
       </aside>
       <section>
         <h2>Lista de elementos</h2>
-        <ul>
-          {items.length == 0 ? (
-            <p>
-              <strong>No hay elementos en la lista</strong>
-            </p>
-          ) : (
-            items.map((item) => {
+
+        {items.length == 0 ? (
+          <p>
+            <strong>No hay elementos en la lista</strong>
+          </p>
+        ) : (
+          <ul>
+            {items.map((item) => {
               return (
                 <li key={item.id}>
                   {item.text}
@@ -86,9 +87,9 @@ function App() {
                   </button>
                 </li>
               );
-            })
-          )}
-        </ul>
+            })}
+          </ul>
+        )}
       </section>
     </main>
   );
