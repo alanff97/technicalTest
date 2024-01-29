@@ -7,7 +7,7 @@ export interface Item {
   text: string;
   timestamp: number;
 }
-const INITIAL_ITEMS: Item[] = [
+/* const INITIAL_ITEMS: Item[] = [
   {
     id: crypto.randomUUID(),
     text: 'Videojuegos',
@@ -18,10 +18,10 @@ const INITIAL_ITEMS: Item[] = [
     text: 'Libros',
     timestamp: Date.now(),
   },
-];
+]; */
 
 function App() {
-  const [items, setItems] = useState(INITIAL_ITEMS);
+  const [items, setItems] = useState<Item[]>([]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,7 +56,7 @@ function App() {
         <h1>Prueba Tecnica React</h1>
         <h2>Añadir y eliminar elementos de una lista</h2>
 
-        <form onSubmit={handleSubmit} aria-label="Añadir elementos a la lista"> 
+        <form onSubmit={handleSubmit} aria-label="Añadir elementos a la lista">
           <label>
             Elemento a introducir:
             <input
