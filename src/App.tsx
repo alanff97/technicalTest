@@ -25,7 +25,7 @@ export interface Item {
 function App() {
   const { items, addItem, removeItem } = useItems();
   useSEO({
-    title: `${items.length} React test`,
+    title: `[${items.length}] React test`,
     description: `Añadir y eliminar elementos de una lista`,
   });
 
